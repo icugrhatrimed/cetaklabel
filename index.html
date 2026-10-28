@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIRA Label Printer | ICU 5B1 Grha Trimed</title>
+<style>
+:root{--navy:#083b68;--blue:#0878d1;--cyan:#25b9dc;--green:#07966b;--ink:#102d49;--muted:#667d93;--line:#d9e8f3;--bg:#edf7fd;--card:#fff;--shadow:0 8px 24px #164b7110}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#e8f5ff,#f7fcff);font:14px/1.45 "Segoe UI",Arial,sans-serif;color:var(--ink)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 13px;font-weight:700;background:#e8f1f8;color:var(--ink)}button:hover{filter:brightness(.98)}.primary{background:linear-gradient(135deg,#0878d1,#08a6c8);color:#fff}.green{background:linear-gradient(135deg,#07966b,#11b68b);color:#fff}.outline{background:#fff;border:1px solid #c8deee}
+.topbar{display:flex;align-items:center;gap:16px;padding:16px 24px;background:#ffffffed;border-bottom:1px solid #d7e9f6;position:sticky;top:0;z-index:5;backdrop-filter:blur(10px)}
+.logo{width:52px;height:52px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(135deg,#00b7d7,#0878d1);color:white;font-size:29px;font-weight:900}
+.brand h1{font-size:24px;line-height:1.1;margin:0;color:#073c6b}.brand p{margin:5px 0 0;color:#56728d}.topnote{margin-left:auto;color:#41627e;font-size:13px}.top-actions{display:flex;gap:8px}
+.shell{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;max-width:1600px;margin:16px auto;padding:0 16px 28px}
+.sidebar{background:linear-gradient(180deg,#0b507d,#06395f);border-radius:16px;padding:14px 10px;color:white;min-height:calc(100vh - 110px);display:flex;flex-direction:column;gap:7px}
+.nav{padding:12px 11px;border-radius:10px;display:flex;align-items:center;gap:10px;color:#e6f6ff;font-weight:600}.nav.active{background:linear-gradient(135deg,#0ca5ef,#0878d1);box-shadow:0 6px 18px #001e3c33}.nav .ico{font-size:20px;width:25px;text-align:center}.sidefoot{margin-top:auto;padding:16px 8px;color:#d0efff;font-size:13px;border-top:1px solid #ffffff26}
+.workspace{min-width:0}.modebar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.modebtn{display:flex;align-items:center;gap:10px;padding:12px 16px;border:1px solid #d2e4f2;border-radius:12px;background:#fff;color:#2d5273}.modebtn.active{background:#e1f2ff;border:2px solid #168bd7;color:#075ca4}.modebtn b{display:block}.modebtn small{display:block;font-weight:400;color:#617c94;margin-top:2px}
+.layout{display:grid;grid-template-columns:minmax(380px,1.1fr) minmax(280px,.8fr) minmax(300px,1fr);gap:14px;align-items:start}
+@media(min-width:1201px){.layout>section:nth-child(1),.layout>section:nth-child(2){position:relative}.layout>section:nth-child(2){position:sticky;top:94px}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);padding:15px;min-width:0}.panelhead{display:flex;align-items:center;gap:10px;margin-bottom:13px}.step{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(135deg,#0878d1,#13b6d2);color:#fff;font-size:17px;font-weight:800}.panel h2{font-size:17px;margin:0;color:#0b3f6d}.sub{font-size:12px;color:var(--muted);margin-top:3px}
+.section{border-radius:11px;border:1px solid var(--line);overflow:hidden;margin-bottom:10px}.section-title{padding:8px 10px;background:#e4f6f1;color:#087e62;font-weight:800;display:flex;align-items:center;gap:8px}.section.blue .section-title{background:#e4f2ff;color:#0869bd}.section.purple .section-title{background:#eeeaff;color:#5c46ad}.section.orange .section-title{background:#fff0d9;color:#88520b}.section.pink .section-title{background:#ffeaf0;color:#b52151}.section-body{padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:#234765}.field input,.field select,.field textarea{width:100%;min-width:0;border:1px solid #cbddea;border-radius:8px;padding:9px 10px;background:#fbfdff;color:#132e47;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#168bd7;box-shadow:0 0 0 3px #168bd71a}.span2{grid-column:1/-1}.paperchoice{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}.paperopt{border:1px solid #d6e4ef;border-radius:10px;padding:10px;cursor:pointer}.paperopt:has(input:checked){border:2px solid #0878d1;background:#f0f9ff}.paperopt input{margin-right:5px}.paperopt b{font-size:13px;color:#075ca4}.paperopt small{display:block;color:#607c93;margin:4px 0}.mini-sheet{display:flex;justify-content:center;margin:8px auto 2px}.mini-paper{border:1px solid #9bb4c8;background:#fff;padding:3px;display:grid;gap:2px;width:54px;height:69px}.mini-paper span{border:1px solid #b3c8d8;border-radius:1px}
+.previewbox{border:1px solid #cfe0ed;border-radius:11px;background:linear-gradient(135deg,#f5fbff,#fff);padding:12px}.previewtop{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:9px}.previewtop b{font-size:14px}.tag{font-size:10px;border:1px solid #9ccbed;background:#f2faff;color:#075ca4;border-radius:20px;padding:4px 7px;white-space:nowrap}.labelpreview{background:white;border:1px dashed #9eb5c8;border-radius:7px;min-height:100px;padding:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px;color:#111;overflow-wrap:anywhere}.labelpreview .patient{font-size:15px;font-weight:800}.labelpreview .drug{font-size:17px;font-weight:900}.labelpreview .detail{font-size:11px}.labelpreview .staff{display:flex;width:100%;justify-content:space-around;border-top:1px solid #d4dce3;margin-top:4px;padding-top:4px;font-size:10px;gap:4px}.spec{margin-top:12px;border:1px solid #d6e9f6;border-radius:11px;padding:12px}.spec h3{font-size:13px;margin:0 0 8px;color:#0b609d}.spec ul{padding-left:17px;margin:0;color:#3e5d78;font-size:12px}.spec li{margin:4px 0}.actions{display:flex;gap:8px;margin-top:12px}.actions button{flex:1}.righthead{background:linear-gradient(120deg,#07518a,#0878bd);color:#fff;margin:-15px -15px 12px;padding:13px 15px;border-radius:15px 15px 0 0;display:flex;align-items:center;justify-content:space-between;gap:8px}.righthead h2{color:#fff;font-size:15px}.righthead button{font-size:11px;padding:7px;background:#e5f4ff;color:#07518a}.sheet-wrap{background:#f6fbff;border:1px solid #d5e6f2;border-radius:10px;padding:10px}.sheet-grid{display:grid;gap:5px}.slot{min-width:0;min-height:39px;background:#fff;border:1px solid #b9c7d3;border-radius:6px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:3px;cursor:pointer;color:#18334b;overflow:hidden}.slot.selected{background:#d9f8e9;border:2px solid #0c9b68;color:#06764f}.slot .num{font-size:11px;font-weight:700}.slot .check{font-size:10px}.slot .mini{font-size:7px;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:#526e85}.dot{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:1px solid #b9c7d3}.dot.sel{background:#d9f8e9;border-color:#0c9b68}.notice{font-size:11px;background:#fff8e6;color:#785516;border:1px solid #f1dca3;border-radius:9px;padding:9px;margin-top:10px}.hidden{display:none!important}
+#customFields{margin-bottom:10px}.custom-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#printArea{display:none}
+@media(max-width:1200px){.layout{grid-template-columns:minmax(0,1.1fr) minmax(270px,.9fr)}.rightpanel{grid-column:1/-1}.rightpanel .sheet-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.rightpanel .slot{min-height:42px}}
+@media(max-width:760px){.topbar{padding:12px;gap:10px}.brand h1{font-size:18px}.brand p{font-size:11px}.topnote,.top-actions{display:none}.shell{display:block;padding:0 10px}.sidebar{min-height:auto;display:flex;flex-direction:row;overflow:auto;margin-bottom:12px;padding:7px}.nav{white-space:nowrap;padding:9px}.nav .labelnav,.sidefoot{display:none}.layout{grid-template-columns:1fr}.rightpanel{grid-column:auto}.rightpanel .sheet-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.section-body{grid-template-columns:1fr}.span2{grid-column:auto}.panel{padding:12px}.righthead{margin:-12px -12px 12px}.modebtn{flex:1;padding:10px}.paperchoice{grid-template-columns:1fr 1fr}}
+@page{size:165mm 210mm;margin:0}
+@media print{
+ body{margin:0;background:#fff}
+ body *{visibility:hidden!important}
+ #printArea,#printArea *{visibility:visible!important}
+ #printArea{display:block!important;position:absolute;left:0;top:0;width:165mm;height:210mm;margin:0;padding:0;overflow:hidden}
+ .print-sheet{position:relative;width:165mm;height:210mm;overflow:hidden;background:#fff}
+ .print-grid{position:absolute;left:var(--left);top:var(--top);display:grid;grid-template-columns:repeat(var(--cols),var(--w));grid-template-rows:repeat(var(--rows),var(--h));column-gap:var(--gx);row-gap:var(--gy)}
+ .print-cell{width:var(--w);height:var(--h);overflow:hidden;padding:1mm;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-family:Arial,sans-serif;color:#000;line-height:1.05;overflow-wrap:anywhere}
+ .print-cell .ppatient{font-size:7pt;font-weight:700}.print-cell .pdrug{font-size:8pt;font-weight:800}.print-cell .pdetail{font-size:6pt}.print-cell .pstaff{font-size:5.5pt;display:flex;justify-content:space-around;width:100%;gap:1mm;border-top:.2mm solid #aaa;margin-top:.5mm;padding-top:.4mm}
+ .print-cell .ptext{font-size:var(--customfont);white-space:pre-wrap;overflow-wrap:anywhere;width:100%}
+}
+</style></head>
+<body>
+<header class="topbar">
+ <div class="logo">✚</div><div class="brand"><h1>AIRA Label Printer</h1><p>ICU 5B1 Grha Trimed &nbsp; | &nbsp; Rumah Sakit Universitas Airlangga</p></div>
+ <div class="topnote">Cetak label cepat, akurat, dan efisien</div>
+ <div class="top-actions"><button class="outline" onclick="document.getElementById('settings').scrollIntoView({behavior:'smooth'})">⚙ Pengaturan</button><button class="primary" onclick="preparePrint()">▣ Cetak</button><button class="outline" onclick="showHelp()">? Bantuan</button></div>
+</header>
+<div class="shell">
+ <aside class="sidebar">
+  <div class="nav"><span class="ico">⌂</span><span class="labelnav">Beranda</span></div>
+  <div class="nav active" id="navMed" onclick="switchMode('med')"><span class="ico">💊</span><span class="labelnav">Versi 1<br>Label Obat Manual</span></div>
+  <div class="nav" id="navCustom" onclick="switchMode('custom')"><span class="ico">▤</span><span class="labelnav">Versi 2<br>Label Kustom</span></div>
+  <div class="nav" onclick="document.getElementById('settings').scrollIntoView({behavior:'smooth'})"><span class="ico">⚙</span><span class="labelnav">Pengaturan Kertas</span></div>
+  <div class="nav" onclick="document.getElementById('printPanel').scrollIntoView({behavior:'smooth'})"><span class="ico">▣</span><span class="labelnav">Cetak & Pratinjau</span></div>
+  <div class="nav" onclick="showHelp()"><span class="ico">▣</span><span class="labelnav">Panduan</span></div>
+  <div class="sidefoot">Keselamatan Pasien<br><b>Prioritas Kami ♡</b></div>
+ </aside>
+ <main class="workspace">
+  <div class="modebar">
+   <button class="modebtn active" id="modeMed" onclick="switchMode('med')"><span style="font-size:24px">💊</span><span><b>Versi 1 — Label Obat Manual</b><small>Isi data pasien dan obat, lalu cetak</small></span></button>
+   <button class="modebtn" id="modeCustom" onclick="switchMode('custom')"><span style="font-size:24px">▤</span><span><b>Versi 2 — Label Kustom</b><small>Atur teks dan ukuran sendiri</small></span></button>
+  </div>
+  <div class="layout">
+   <section class="panel">
+    <div class="panelhead"><div class="step">1</div><div><h2 id="formTitle">Data Label Obat</h2><div class="sub">Isi informasi yang akan dicetak pada label.</div></div></div>
+    <div id="medFields">
+     <div class="section"><div class="section-title">①　♙ Data Pasien</div><div class="section-body">
+      <div class="field"><label for="patient">Nama Pasien</label><input id="patient" placeholder="Nama lengkap pasien" oninput="updatePreview()"></div>
+      <div class="field"><label for="rm">Nomor Rekam Medis</label><input id="rm" placeholder="Nomor RM" oninput="updatePreview()"></div>
+     </div></div>
+     <div class="section blue"><div class="section-title">②　💊 Data Obat</div><div class="section-body">
+      <div class="field"><label for="drug">Nama Obat</label><input id="drug" placeholder="Contoh: Midazolam" oninput="updatePreview()"></div>
+      <div class="field"><label for="dose">Dosis / Kekuatan</label><input id="dose" placeholder="Contoh: 5 mg/mL" oninput="updatePreview()"></div>
+     </div></div>
+     <div class="section purple"><div class="section-title">③　▦ Tanggal & Waktu</div><div class="section-body">
+      <div class="field"><label for="date">Tanggal</label><input id="date" type="date" oninput="updatePreview()"></div>
+      <div class="field"><label for="time">Jam (otomatis)</label><input id="time" type="time" oninput="updatePreview()"><div class="sub">Terisi otomatis sesuai jam komputer; bisa diubah.</div></div>
+     </div></div>
+     <div class="section orange"><div class="section-title">④　♟ Petugas</div><div class="section-body">
+      <div class="field"><label for="checker">Checker</label><input id="checker" placeholder="Nama/inisial checker" oninput="updatePreview()"></div>
+      <div class="field"><label for="giver">Giver</label><input id="giver" placeholder="Nama/inisial giver" oninput="updatePreview()"></div>
+     </div></div>
+    </div>
+    <div id="customFields" class="hidden">
+     <div class="section pink"><div class="section-title">▤ Isi Label Kustom</div><div class="section-body">
+      <div class="field span2"><label for="customText">Teks label (gunakan baris baru bila perlu)</label><textarea id="customText" rows="4" placeholder="NAMA PASIEN&#10;No. RM: 12345678&#10;KETERANGAN" oninput="updatePreview()">NAMA PASIEN&#10;No. RM: 12345678&#10;KETERANGAN</textarea></div>
+      <div class="field"><label for="fontSize">Ukuran huruf (pt)</label><input id="fontSize" type="number" min="5" max="24" value="8" oninput="updatePreview()"></div>
+      <div class="field"><label for="align">Perataan teks</label><select id="align" onchange="updatePreview()"><option value="center">Tengah</option><option value="left">Kiri</option><option value="right">Kanan</option></select></div>
+     </div></div>
+     <div class="section"><div class="section-title">Ukuran Kustom</div><div class="section-body">
+      <div class="field"><label for="customW">Lebar label (mm)</label><input id="customW" type="number" min="10" max="160" step=".1" value="49.7" oninput="customSizeChanged()"></div>
+      <div class="field"><label for="customH">Tinggi label (mm)</label><input id="customH" type="number" min="8" max="200" step=".1" value="18" oninput="customSizeChanged()"></div>
+     </div></div>
+    </div>
+    <div class="section pink" id="paperSection"><div class="section-title">⑤　▤ Pilih Jenis Kertas Stiker</div>
+     <div class="paperchoice">
+      <label class="paperopt"><input type="radio" name="paper" value="107" checked onchange="paperChanged()"><b>Tom & Jerry 107</b><small>3 kolom × 10 baris<br>30 label per lembar</small><div class="mini-sheet" id="mini107"></div><div class="sub">49,67 × 18 mm (perkiraan)</div></label>
+      <label class="paperopt"><input type="radio" name="paper" value="122" onchange="paperChanged()"><b>Tom & Jerry 122</b><small>2 kolom × 5 baris<br>10 label per lembar</small><div class="mini-sheet" id="mini122"></div><div class="sub">75,5 × 38 mm (perkiraan)</div></label>
+     </div>
+    </div>
+   </section>
+   <section class="panel">
+    <div class="panelhead"><div class="step">2</div><div><h2>Pratinjau Label</h2><div class="sub">Contoh isi label sebelum dicetak.</div></div></div>
+    <div class="previewbox"><div class="previewtop"><b>◉　Pratinjau label</b><span class="tag">Tampilan contoh</span></div>
+     <div class="labelpreview" id="preview">
+      <div class="patient" id="pvPatient">NAMA PASIEN</div><div class="detail" id="pvRm">No. RM: —</div><div class="drug" id="pvDrug">NAMA OBAT</div><div class="detail" id="pvDose">Dosis: —</div><div class="detail" id="pvDate">Tanggal: —</div>
+      <div class="staff"><span id="pvChecker">Checker: —</span><span id="pvGiver">Giver: —</span></div>
+     </div>
+    </div>
+    <div class="spec" id="spec">
+     <h3>⬡　Ukuran Label Terpilih</h3><ul id="specList"></ul>
+    </div>
+    <div class="actions"><button class="outline" onclick="resetForm()">⟳ Kosongkan Form</button><button class="green" onclick="preparePrint()">▣ Siapkan dan Cetak</button></div>
+    <div class="notice">Pastikan nama pasien, No. RM, nama obat, dan dosis telah diverifikasi. Cetak uji di kertas biasa sebelum menggunakan stiker asli.</div>
+   </section>
+   <section class="panel rightpanel" id="printPanel">
+    <div class="righthead"><h2>▦　Pilih Posisi Label pada Lembar</h2><button onclick="resetSelection()">⟳ Reset Pilihan</button></div>
+    <div class="sub" style="margin-bottom:9px">Klik kotak untuk memilih posisi yang akan dicetak.</div>
+    <div class="sheet-wrap"><div class="sheet-grid" id="sheetGrid"></div></div>
+    <div class="legend"><span><i class="dot sel"></i>Posisi dipilih (akan dicetak)</span><span><i class="dot"></i>Posisi kosong (tidak dicetak)</span></div>
+    <div class="notice">Kotak yang tidak dipilih tetap kosong sehingga sisa stiker dapat digunakan kembali.</div>
+   </section>
+  </div>
+  <section class="panel" id="settings" style="margin-top:14px">
+   <div class="panelhead"><div class="step">⚙</div><div><h2>Pengaturan Kertas & Kalibrasi</h2><div class="sub">Dimensi lembar mengikuti spesifikasi yang diberikan.</div></div></div>
+   <div class="custom-controls">
+    <div class="field"><label>Ukuran lembar</label><input value="165 × 210 mm (lebar × panjang)" readonly></div>
+    <div class="field"><label>Orientasi cetak</label><select id="orientation" onchange="updatePreview()"><option value="portrait">Portrait — 165 × 210 mm</option><option value="landscape">Landscape — putar lembar</option></select></div>
+    <div class="field"><label>Margin kiri (mm)</label><input id="marginLeft" type="number" min="0" max="30" step=".5" value="3" onchange="renderSheet()"></div>
+    <div class="field"><label>Margin atas (mm)</label><input id="marginTop" type="number" min="0" max="30" step=".5" value="6" onchange="renderSheet()"></div>
+    <div class="field"><label>Jarak horizontal antarlabel (mm)</label><input id="gapX" type="number" min="0" max="20" step=".5" value="5" onchange="renderSheet()"></div>
+    <div class="field"><label>Jarak vertikal antarlabel (mm)</label><input id="gapY" type="number" min="0" max="20" step=".5" value="2" onchange="renderSheet()"></div>
+    <div class="field"><label>Jumlah kolom</label><input id="cols" type="number" min="1" max="8" value="3" onchange="renderSheet()"></div>
+    <div class="field"><label>Jumlah baris</label><input id="rows" type="number" min="1" max="20" value="10" onchange="renderSheet()"></div>
+   </div>
+   <p class="sub">Untuk Tom & Jerry 107: margin kiri/kanan 3 mm, atas/bawah 6 mm, jarak horizontal 5 mm, vertikal 2 mm. Untuk Tom & Jerry 122: margin kiri/kanan 6 mm, atas/bawah 6 mm, jarak horizontal 2 mm, vertikal 2 mm.</p>
+  </section>
+ </main>
+</div>
+<div id="printArea"><div class="print-sheet"><div class="print-grid" id="printGrid"></div></div></div>
+<script>
+let mode='med',selected=new Set([1]);
+const $=id=>document.getElementById(id);
+function currentPaper(){return document.querySelector('input[name="paper"]:checked').value}
+function dims(){
+ if(mode==='custom') return {w:Math.max(10,+$('customW').value||50),h:Math.max(8,+$('customH').value||18)};
+ return currentPaper()==='107'?{w:(165-3-3-2*5)/3,h:(210-6-6-9*2)/10}:{w:(165-6-6-2)/2,h:(210-6-6-4*2)/5};
+}
+function setMini(id,cols,rows){const e=$(id);e.innerHTML='';e.style.gridTemplateColumns=`repeat(${cols},1fr)`;for(let i=0;i<cols*rows;i++)e.appendChild(document.createElement('span'))}
+function paperChanged(){
+ const p=currentPaper();
+ $('cols').value=p==='107'?3:2;$('rows').value=p==='107'?10:5;
+ $('marginLeft').value=p==='107'?3:6;$('marginTop').value=6;
+ $('gapX').value=p==='107'?5:2;$('gapY').value=2;
+ $('customW').value=dimsForPaper(p).w.toFixed(2);$('customH').value=dimsForPaper(p).h.toFixed(2);
+ selected=new Set([1]);renderSheet();updatePreview();
+}
+function dimsForPaper(p){return p==='107'?{w:(165-6-10)/3,h:(210-12-18)/10}:{w:(165-12-2)/2,h:(210-12-8)/5}}
+function switchMode(m){mode=m;$('medFields').classList.toggle('hidden',m!=='med');$('customFields').classList.toggle('hidden',m!=='custom');$('paperSection').classList.remove('hidden');$('modeMed').classList.toggle('active',m==='med');$('modeCustom').classList.toggle('active',m==='custom');$('navMed').classList.toggle('active',m==='med');$('navCustom').classList.toggle('active',m==='custom');$('formTitle').textContent=m==='med'?'Data Label Obat':'Data Label Kustom';updatePreview();renderSheet()}
+function medData(){const date=$('date').value?new Date($('date').value+'T12:00:00').toLocaleDateString('id-ID'):'—';return {patient:$('patient').value.trim(),rm:$('rm').value.trim(),drug:$('drug').value.trim(),dose:$('dose').value.trim(),date,time:$('time').value,checker:$('checker').value.trim(),giver:$('giver').value.trim()}}
+function updatePreview(){
+ const d=medData();$('pvPatient').textContent=d.patient||'NAMA PASIEN';$('pvRm').textContent='No. RM: '+(d.rm||'—');$('pvDrug').textContent=d.drug||'NAMA OBAT';$('pvDose').textContent='Dosis: '+(d.dose||'—');$('pvDate').textContent='Tanggal: '+(d.date==='—'?'—':d.date)+(d.time?' | Jam: '+d.time:'');$('pvChecker').textContent='Checker: '+(d.checker||'—');$('pvGiver').textContent='Giver: '+(d.giver||'—');
+ const {w,h}=dims();$('preview').style.minHeight=Math.max(85,Math.min(220,h*3.2))+'px';$('preview').style.maxWidth=Math.min(100,w*1.9)+'%';
+ if(mode==='custom'){$('preview').innerHTML='';const t=document.createElement('div');t.style.whiteSpace='pre-wrap';t.style.width='100%';t.style.textAlign=$('align').value;t.style.fontSize=($('fontSize').value||8)+'pt';t.textContent=$('customText').value||'Teks label';$('preview').appendChild(t)}
+ else {$('preview').innerHTML='<div class="patient" id="pvPatient"></div><div class="detail" id="pvRm"></div><div class="drug" id="pvDrug"></div><div class="detail" id="pvDose"></div><div class="detail" id="pvDate"></div><div class="staff"><span id="pvChecker"></span><span id="pvGiver"></span></div>';const d2=medData();$('pvPatient').textContent=d2.patient||'NAMA PASIEN';$('pvRm').textContent='No. RM: '+(d2.rm||'—');$('pvDrug').textContent=d2.drug||'NAMA OBAT';$('pvDose').textContent='Dosis: '+(d2.dose||'—');$('pvDate').textContent='Tanggal: '+(d2.date==='—'?'—':d2.date)+(d2.time?' | Jam: '+d2.time:'');$('pvChecker').textContent='Checker: '+(d2.checker||'—');$('pvGiver').textContent='Giver: '+(d2.giver||'—')}
+ updateSpec();
+}
+function updateSpec(){
+ const p=currentPaper(),d=dims(),cols=+$('cols').value|| (p==='107'?3:2),rows=+$('rows').value||(p==='107'?10:5);
+ const ml=+$('marginLeft').value||0,mt=+$('marginTop').value||0,gx=+$('gapX').value||0,gy=+$('gapY').value||0;
+ const lines=[`Ukuran lembar: 165 × 210 mm`,`Jumlah label: ${cols*rows} (${cols} kolom × ${rows} baris)`,`Margin kiri: ${ml} mm`,`Margin atas: ${mt} mm`,`Jarak horizontal: ${gx} mm`,`Jarak vertikal: ${gy} mm`,`Ukuran label: ${d.w.toFixed(2)} × ${d.h.toFixed(2)} mm (perkiraan)`];
+ $('specList').innerHTML=lines.map(x=>'<li>'+x+'</li>').join('');
+}
+function renderSheet(){
+ const cols=Math.max(1,Math.min(8,+$('cols').value||3)),rows=Math.max(1,Math.min(20,+$('rows').value||10)),count=cols*rows;
+ selected=new Set([...selected].filter(n=>n<=count));if(!selected.size)selected.add(1);
+ const grid=$('sheetGrid');grid.innerHTML='';grid.style.gridTemplateColumns=`repeat(${cols},minmax(0,1fr))`;
+ for(let i=1;i<=count;i++){const b=document.createElement('button');b.type='button';b.className='slot'+(selected.has(i)?' selected':'');b.innerHTML=`<span class="num">${i}</span>${selected.has(i)?'<span class="check">✓ Dipilih</span>':'<span class="check">&nbsp;</span>'}`;b.onclick=()=>{selected.has(i)?selected.delete(i):selected.add(i);renderSheet()};grid.appendChild(b)}
+ updateSpec();
+}
+function resetSelection(){selected.clear();renderSheet()}
+function localDateValue(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function localTimeValue(){const d=new Date();return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`}
+function fillCurrentDateTime(){if(!$('date').value)$('date').value=localDateValue();if(!$('time').value)$('time').value=localTimeValue()}
+function resetForm(){['patient','rm','drug','dose','checker','giver'].forEach(id=>$(id).value='');$('date').value=localDateValue();$('time').value=localTimeValue();$('customText').value='';updatePreview()}
+function customSizeChanged(){updatePreview();renderSheet()}
+function showHelp(){alert('Panduan cetak:\\n1. Pilih Versi 1 atau Versi 2.\\n2. Pilih kode stiker dan posisi kotak.\\n3. Klik Siapkan dan Cetak.\\n4. Pilih skala 100% / Actual size dan nonaktifkan header-footer browser.\\n5. Cetak uji di kertas biasa.\\n\\nUkuran lembar: 165 × 210 mm.');}
+function preparePrint(){
+ const cols=Math.max(1,Math.min(8,+$('cols').value||3)),rows=Math.max(1,Math.min(20,+$('rows').value||10)),count=cols*rows;
+ if(!selected.size){alert('Pilih minimal satu kotak label.');return}
+ const {w,h}=dims(),gx=+$('gapX').value||0,gy=+$('gapY').value||0,ml=+$('marginLeft').value||0,mt=+$('marginTop').value||0;
+ const landscape=$('orientation').value==='landscape';const pw=landscape?210:165,ph=landscape?165:210;
+ const style=document.getElementById('printDynamic');if(style)style.remove();
+ const st=document.createElement('style');st.id='printDynamic';st.textContent=`@page{size:${pw}mm ${ph}mm;margin:0}@media print{#printArea{width:${pw}mm;height:${ph}mm}.print-sheet{width:${pw}mm;height:${ph}mm}.print-grid{--cols:${cols};--rows:${rows};--w:${w}mm;--h:${h}mm;--gx:${gx}mm;--gy:${gy}mm;--left:${ml}mm;--top:${mt}mm;--customfont:${+$('fontSize').value||8}pt}}`;document.head.appendChild(st);
+ const pg=$('printGrid');pg.innerHTML='';const d=medData();
+ for(let i=1;i<=count;i++){
+  const cell=document.createElement('div');cell.className='print-cell';
+  if(selected.has(i)){
+   if(mode==='custom'){const t=document.createElement('div');t.className='ptext';t.style.textAlign=$('align').value;t.textContent=$('customText').value;cell.appendChild(t)}
+   else{
+    const add=(cls,text)=>{if(!text)return;const x=document.createElement('div');x.className=cls;x.textContent=text;cell.appendChild(x)};
+    add('ppatient',d.patient||'NAMA PASIEN');add('pdetail','No. RM: '+(d.rm||'—'));add('pdrug',d.drug||'NAMA OBAT');add('pdetail','Dosis: '+(d.dose||'—'));add('pdetail',[d.date==='—'?'':d.date,d.time].filter(Boolean).join(' | '));
+    const staff=document.createElement('div');staff.className='pstaff';const c=document.createElement('span');c.textContent='Checker: '+(d.checker||'—');const g=document.createElement('span');g.textContent='Giver: '+(d.giver||'—');staff.append(c,g);cell.appendChild(staff)
+   }
+  }
+  pg.appendChild(cell)
+ }
+ $('printArea').style.display='block';window.print();$('printArea').style.display='none';
+}
+setMini('mini107',3,10);setMini('mini122',2,5);$('date').value=localDateValue();$('time').value=localTimeValue();paperChanged();renderSheet();updatePreview();
+// Keep a prefilled time available when the form is opened or left blank.
+setInterval(()=>{if(!$('time').value){$('time').value=localTimeValue();updatePreview()}},15000);
+</script></body></html>
