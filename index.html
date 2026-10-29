@@ -26,11 +26,14 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-
 @media(max-width:760px){.topbar{padding:10px;gap:10px}.logo{width:52px;height:52px;flex-basis:52px}.brand h1{font-size:18px}.brand p{font-size:11px}.topnote,.top-actions{display:none}.shell{display:block;padding:0 10px}.sidebar{min-height:auto;display:flex;flex-direction:row;overflow:auto;margin-bottom:12px;padding:7px}.nav{white-space:nowrap;padding:9px}.nav .labelnav,.sidefoot{display:none}.layout{grid-template-columns:1fr}.rightpanel{grid-column:auto}.rightpanel .sheet-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.section-body{grid-template-columns:1fr}.span2{grid-column:auto}.panel{padding:12px}.righthead{margin:-12px -12px 12px}.modebtn{flex:1;padding:10px}.paperchoice{grid-template-columns:1fr 1fr}}
 @page{size:165mm 210mm;margin:0}
 @media print{
- body{margin:0;background:#fff}
+ @page{size:165mm 210mm;margin:0}
+ html,body{width:165mm!important;height:210mm!important;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#fff!important}
+ /* Hide other app sections with display:none so they cannot create extra printed pages. */
+ body > *:not(#printArea){display:none!important}
  body *{visibility:hidden!important}
  #printArea,#printArea *{visibility:visible!important}
- #printArea{display:block!important;position:absolute;left:0;top:0;width:165mm;height:210mm;margin:0;padding:0;overflow:hidden}
- .print-sheet{position:relative;width:165mm;height:210mm;overflow:hidden;background:#fff}
+ #printArea{display:block!important;position:fixed!important;left:0!important;top:0!important;width:165mm!important;height:210mm!important;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;break-before:avoid!important;break-after:avoid!important;page-break-before:avoid!important;page-break-after:avoid!important}
+ .print-sheet{position:relative;width:165mm!important;height:210mm!important;min-width:165mm!important;min-height:210mm!important;max-width:165mm!important;max-height:210mm!important;overflow:hidden;background:#fff;break-inside:avoid!important;page-break-inside:avoid!important}
  .print-grid{position:absolute;left:var(--left);top:var(--top);display:grid;grid-template-columns:repeat(var(--cols),var(--w));grid-template-rows:repeat(var(--rows),var(--h));column-gap:var(--gx);row-gap:var(--gy)}
  .print-cell{width:var(--w);height:var(--h);overflow:hidden;padding:1mm;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-family:Arial,sans-serif;color:#000;line-height:1.05;overflow-wrap:anywhere}
  .print-cell .ppatient{font-size:7pt;font-weight:700}.print-cell .pdrug{font-size:8pt;font-weight:800}.print-cell .pdetail{font-size:6pt}.print-cell .pstaff{font-size:5.5pt;display:flex;justify-content:space-around;width:100%;gap:1mm;border-top:.2mm solid #aaa;margin-top:.5mm;padding-top:.4mm}
@@ -89,6 +92,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-
      <div class="section pink"><div class="section-title">▤ Isi Label Kustom</div><div class="section-body">
       <div class="field span2"><label for="customText">Teks label (ketik di sini; pratinjau langsung diperbarui)</label><textarea id="customText" rows="4" placeholder="NAMA PASIEN&#10;No. RM: 12345678&#10;KETERANGAN" oninput="updatePreview()">NAMA PASIEN&#10;No. RM: 12345678&#10;KETERANGAN</textarea></div>
       <div class="field"><label for="fontSize">Ukuran huruf (pt)</label><input id="fontSize" type="number" min="5" max="24" value="8" oninput="updatePreview()"></div>
+      <div class="field"><label for="fontStyle">Gaya huruf</label><select id="fontStyle" onchange="updatePreview()"><option value="normal">Biasa</option><option value="bold">Bold (Tebal)</option><option value="italic">Italic (Miring)</option></select></div>
       <div class="field"><label for="align">Perataan teks</label><select id="align" onchange="updatePreview()"><option value="center">Tengah</option><option value="left">Kiri</option><option value="right">Kanan</option></select></div>
      </div></div>
      <div class="section"><div class="section-title">Ukuran Kustom</div><div class="section-body">
@@ -220,6 +224,9 @@ function updatePreview(){
   t.style.width='100%';
   t.style.textAlign=$('align').value;
   t.style.fontSize=Math.max(5,Math.min(24,+$('fontSize').value||8))+'pt';
+  const customStyle=$('fontStyle').value;
+  t.style.fontWeight=customStyle==='bold'?'700':'400';
+  t.style.fontStyle=customStyle==='italic'?'italic':'normal';
   t.style.lineHeight='1.1';
   t.textContent=$('customText').value || 'Teks label akan muncul di sini saat Anda mengetik.';
   preview.style.alignItems='stretch';
@@ -274,7 +281,7 @@ function renderSheet(){
 }
 function captureCurrentLabel(){
  if(mode==='custom'){
-  return {mode:'custom',data:{text:$('customText').value,fontSize:Math.max(5,Math.min(24,+$('fontSize').value||8)),align:$('align').value}};
+  return {mode:'custom',data:{text:$('customText').value,fontSize:Math.max(5,Math.min(24,+$('fontSize').value||8)),fontStyle:$('fontStyle').value,align:$('align').value}};
  }
  return {mode:'med',data:medData()};
 }
@@ -315,7 +322,7 @@ function preparePrint(){
  const landscape=$('orientation').value==='landscape';const pw=landscape?210:165,ph=landscape?165:210;
  const style=document.getElementById('printDynamic');if(style)style.remove();
  const st=document.createElement('style');st.id='printDynamic';
- st.textContent=`@page{size:${pw}mm ${ph}mm;margin:0}@media print{#printArea{width:${pw}mm;height:${ph}mm}.print-sheet{width:${pw}mm;height:${ph}mm}.print-grid{--cols:${cols};--rows:${rows};--w:${w}mm;--h:${h}mm;--gx:${gx}mm;--gy:${gy}mm;--left:${ml}mm;--top:${mt}mm}}`;
+ st.textContent=`@page{size:${pw}mm ${ph}mm;margin:0}@media print{html,body{width:${pw}mm!important;height:${ph}mm!important}#printArea{width:${pw}mm!important;height:${ph}mm!important}.print-sheet{width:${pw}mm!important;height:${ph}mm!important;min-width:${pw}mm!important;min-height:${ph}mm!important;max-width:${pw}mm!important;max-height:${ph}mm!important}.print-grid{--cols:${cols};--rows:${rows};--w:${w}mm;--h:${h}mm;--gx:${gx}mm;--gy:${gy}mm;--left:${ml}mm;--top:${mt}mm}}`;
  document.head.appendChild(st);
  const pg=$('printGrid');pg.innerHTML='';
  for(let i=1;i<=count;i++){
@@ -326,6 +333,8 @@ function preparePrint(){
     const t=document.createElement('div');t.className='ptext';
     t.style.textAlign=entry.data.align||'center';
     t.style.fontSize=(entry.data.fontSize||8)+'pt';
+    t.style.fontWeight=entry.data.fontStyle==='bold'?'700':'400';
+    t.style.fontStyle=entry.data.fontStyle==='italic'?'italic':'normal';
     t.textContent=entry.data.text;
     cell.appendChild(t);
    }else{
@@ -351,6 +360,7 @@ function preparePrint(){
 // Explicit listeners ensure the custom preview refreshes on every edit.
 $('customText').addEventListener('input',()=>{if(mode==='custom')updatePreview()});
 $('fontSize').addEventListener('input',()=>{if(mode==='custom')updatePreview()});
+$('fontStyle').addEventListener('change',()=>{if(mode==='custom')updatePreview()});
 $('align').addEventListener('change',()=>{if(mode==='custom')updatePreview()});
 $('customW').addEventListener('input',()=>{if(mode==='custom')updatePreview()});
 $('customH').addEventListener('input',()=>{if(mode==='custom')updatePreview()});
