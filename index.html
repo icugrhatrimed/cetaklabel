@@ -140,13 +140,13 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-
     <div class="field"><label>Ukuran lembar</label><input value="165 × 210 mm (lebar × panjang)" readonly></div>
     <div class="field"><label>Orientasi cetak</label><select id="orientation" onchange="updatePreview()"><option value="portrait">Portrait — 165 × 210 mm</option><option value="landscape">Landscape — putar lembar</option></select></div>
     <div class="field"><label>Margin kiri (mm)</label><input id="marginLeft" type="number" min="0" max="30" step=".5" value="3" onchange="renderSheet()"></div>
-    <div class="field"><label>Margin atas (mm)</label><input id="marginTop" type="number" min="0" max="30" step=".5" value="3" onchange="renderSheet()"></div>
+    <div class="field"><label>Margin atas (mm)</label><input id="marginTop" type="number" min="0" max="30" step=".5" value="6" onchange="renderSheet()"></div>
     <div class="field"><label>Jarak horizontal antarlabel (mm)</label><input id="gapX" type="number" min="0" max="20" step=".5" value="5" onchange="renderSheet()"></div>
     <div class="field"><label>Jarak vertikal antarlabel (mm)</label><input id="gapY" type="number" min="0" max="20" step=".5" value="2" onchange="renderSheet()"></div>
     <div class="field"><label>Jumlah kolom</label><input id="cols" type="number" min="1" max="8" value="3" onchange="renderSheet()"></div>
     <div class="field"><label>Jumlah baris</label><input id="rows" type="number" min="1" max="20" value="10" onchange="renderSheet()"></div>
    </div>
-   <p class="sub">Margin atas 3 mm berlaku untuk Tom & Jerry 107 dan 122. Margin kiri, jarak horizontal/vertikal, dan jumlah baris/kolom mengikuti jenis kertas yang dipilih.</p>
+   <p class="sub">Margin atas 6 mm berlaku untuk Tom & Jerry 107 dan 122. Margin kiri, jarak horizontal/vertikal, dan jumlah baris/kolom mengikuti jenis kertas yang dipilih.</p>
   </section>
  </main>
 </div>
@@ -165,7 +165,7 @@ function paperChanged(){
  const p=currentPaper();
  assignedLabels.clear();
  $('cols').value=p==='107'?3:2;$('rows').value=p==='107'?10:5;
- $('marginLeft').value=p==='107'?3:6;$('marginTop').value=3;
+ $('marginLeft').value=p==='107'?3:6;$('marginTop').value=6;
  $('gapX').value=p==='107'?5:2;$('gapY').value=2;
  if(mode!=='custom'){$('customW').value=dimsForPaper(p).w.toFixed(2);$('customH').value=dimsForPaper(p).h.toFixed(2);}
  selected=new Set([1]);renderSheet();updatePreview();
