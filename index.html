@@ -34,9 +34,8 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-
  #printArea,#printArea *{visibility:visible!important}
  #printArea{display:block!important;position:fixed!important;left:0!important;top:0!important;width:165mm!important;height:210mm!important;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;break-before:avoid!important;break-after:avoid!important;page-break-before:avoid!important;page-break-after:avoid!important}
  .print-sheet{position:relative;width:165mm!important;height:210mm!important;min-width:165mm!important;min-height:210mm!important;max-width:165mm!important;max-height:210mm!important;overflow:hidden;background:#fff;break-inside:avoid!important;page-break-inside:avoid!important}
- #printArea[data-paper="122"]{position:absolute!important;left:0!important;top:0!important;}
- .print-grid{position:absolute;left:var(--left);top:var(--top);display:grid;grid-template-columns:repeat(var(--cols),var(--w));grid-template-rows:repeat(var(--rows),var(--h));column-gap:var(--gx);row-gap:var(--gy)}
- .print-cell{width:var(--w);height:var(--h);overflow:hidden;padding:1mm;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-family:Arial,sans-serif;color:#000;line-height:1.05;overflow-wrap:anywhere}
+ .print-grid{position:absolute;left:var(--left);top:var(--top);display:grid;grid-auto-flow:row;box-sizing:border-box;grid-template-columns:repeat(var(--cols),var(--w));grid-template-rows:repeat(var(--rows),var(--h));column-gap:var(--gx);row-gap:var(--gy)}
+ .print-cell{box-sizing:border-box;width:var(--w);height:var(--h);overflow:hidden;padding:1mm;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-family:Arial,sans-serif;color:#000;line-height:1.05;overflow-wrap:anywhere}
  .print-cell .ppatient{font-size:7pt;font-weight:700}.print-cell .pdrug{font-size:8pt;font-weight:800}.print-cell .pdetail{font-size:6pt}.print-cell .pstaff{font-size:5.5pt;display:flex;justify-content:space-around;width:100%;gap:1mm;border-top:.2mm solid #aaa;margin-top:.5mm;padding-top:.4mm}
  .print-cell .ptext{font-size:var(--customfont);white-space:pre-wrap;overflow-wrap:anywhere;width:100%}
 }
@@ -104,7 +103,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-
     <div class="section pink" id="paperSection"><div class="section-title">⑤　▤ Pilih Jenis Kertas Stiker</div>
      <div class="paperchoice">
       <label class="paperopt"><input type="radio" name="paper" value="107" checked onchange="paperChanged()"><b>Tom & Jerry 107</b><small>3 kolom × 10 baris<br>30 label per lembar</small><div class="mini-sheet" id="mini107"></div><div class="sub">49,67 × 18 mm (perkiraan)</div></label>
-      <label class="paperopt"><input type="radio" name="paper" value="122" onchange="paperChanged()"><b>Tom & Jerry 122</b><small>2 kolom × 5 baris<br>10 label per lembar</small><div class="mini-sheet" id="mini122"></div><div class="sub">75,5 × 38 mm (perkiraan)</div></label>
+      <label class="paperopt"><input type="radio" name="paper" value="121" onchange="paperChanged()"><b>Tom & Jerry 121</b><small>2 kolom × 5 baris<br>10 label per lembar</small><div class="mini-sheet" id="mini121"></div><div class="sub">75,5 × 38 mm (hasil perhitungan)</div></label>
      </div>
     </div>
    </section>
@@ -147,7 +146,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-
     <div class="field"><label>Jumlah kolom</label><input id="cols" type="number" min="1" max="8" value="3" onchange="renderSheet()"></div>
     <div class="field"><label>Jumlah baris</label><input id="rows" type="number" min="1" max="20" value="10" onchange="renderSheet()"></div>
    </div>
-   <p class="sub">Margin atas 6 mm berlaku untuk Tom & Jerry 107 dan 122. Margin kiri, jarak horizontal/vertikal, dan jumlah baris/kolom mengikuti jenis kertas yang dipilih.</p>
+   <p class="sub">Margin atas 6 mm berlaku untuk Tom & Jerry 107 dan 121. Margin kiri, jarak horizontal/vertikal, dan jumlah baris/kolom mengikuti jenis kertas yang dipilih.</p>
   </section>
  </main>
 </div>
@@ -261,7 +260,7 @@ function updatePreview(){
 function updateSpec(){
  const p=currentPaper(),d=dims(),cols=+$('cols').value|| (p==='107'?3:2),rows=+$('rows').value||(p==='107'?10:5);
  const ml=+$('marginLeft').value||0,mt=+$('marginTop').value||0,gx=+$('gapX').value||0,gy=+$('gapY').value||0;
- const lines=[`Ukuran lembar: 165 × 210 mm`,`Jumlah label: ${cols*rows} (${cols} kolom × ${rows} baris)`,`Margin kiri: ${ml} mm`,`Margin atas: ${mt} mm`,`Jarak horizontal: ${gx} mm`,`Jarak vertikal: ${gy} mm`,`Ukuran label: ${d.w.toFixed(2)} × ${d.h.toFixed(2)} mm (perkiraan)`];
+ const lines=[`Ukuran lembar: ${$('orientation').value==='landscape'?'210 × 165':'165 × 210'} mm`,`Jumlah label: ${cols*rows} (${cols} kolom × ${rows} baris)`,`Margin kiri: ${ml} mm`,`Margin atas: ${mt} mm`,`Jarak horizontal: ${gx} mm`,`Jarak vertikal: ${gy} mm`,`Ukuran label: ${d.w.toFixed(2)} × ${d.h.toFixed(2)} mm (perkiraan)`];
  $('specList').innerHTML=lines.map(x=>'<li>'+x+'</li>').join('');
 }
 function renderSheet(){
@@ -324,7 +323,7 @@ function preparePrint(){
  const landscape=$('orientation').value==='landscape';const pw=landscape?210:165,ph=landscape?165:210;
  const style=document.getElementById('printDynamic');if(style)style.remove();
  const st=document.createElement('style');st.id='printDynamic';
- st.textContent=`@page{size:${pw}mm ${ph}mm;margin:0}@media print{html,body{width:${pw}mm!important;height:${ph}mm!important}#printArea{width:${pw}mm!important;height:${ph}mm!important}.print-sheet{box-sizing:border-box;width:${pw}mm!important;height:${ph}mm!important;min-width:${pw}mm!important;min-height:${ph}mm!important;max-width:${pw}mm!important;max-height:${ph}mm!important}#printArea[data-paper=\"122\"]{position:absolute!important;left:0!important;top:0!important}.print-grid{--cols:${cols};--rows:${rows};--w:${w}mm;--h:${h}mm;--gx:${gx}mm;--gy:${gy}mm;--left:${ml}mm;--top:${mt}mm}}`;
+ st.textContent=`@page{size:${pw}mm ${ph}mm;margin:0} @media print{html,body{width:${pw}mm!important;height:${ph}mm!important;margin:0!important;padding:0!important}#printArea{display:block!important;position:fixed!important;left:0!important;top:0!important;width:${pw}mm!important;height:${ph}mm!important;margin:0!important;padding:0!important;transform:none!important}.print-sheet{position:relative!important;box-sizing:border-box;width:${pw}mm!important;height:${ph}mm!important;min-width:${pw}mm!important;min-height:${ph}mm!important;max-width:${pw}mm!important;max-height:${ph}mm!important;margin:0!important;padding:0!important}.print-grid{--cols:${cols};--rows:${rows};--w:${w}mm;--h:${h}mm;--gx:${gx}mm;--gy:${gy}mm;--left:${ml}mm;--top:${mt}mm}}`;
  document.head.appendChild(st);
  const pg=$('printGrid');pg.innerHTML='';
  for(let i=1;i<=count;i++){
@@ -366,7 +365,7 @@ $('fontStyle').addEventListener('change',()=>{if(mode==='custom')updatePreview()
 $('align').addEventListener('change',()=>{if(mode==='custom')updatePreview()});
 $('customW').addEventListener('input',()=>{if(mode==='custom')updatePreview()});
 $('customH').addEventListener('input',()=>{if(mode==='custom')updatePreview()});
-setMini('mini107',3,10);setMini('mini122',2,5);populateDrugOptions();$('date').value=localDateValue();$('time').value=localTimeValue();paperChanged();renderSheet();updatePreview();
+setMini('mini107',3,10);setMini('mini121',2,5);populateDrugOptions();$('date').value=localDateValue();$('time').value=localTimeValue();paperChanged();renderSheet();updatePreview();
 // Keep a prefilled time available when the form is opened or left blank.
 setInterval(()=>{if(!$('time').value){$('time').value=localTimeValue();updatePreview()}},15000);
 </script></body></html>
