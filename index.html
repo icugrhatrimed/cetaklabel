@@ -168,7 +168,10 @@ function paperChanged(){
  $('cols').value=p==='107'?3:2;$('rows').value=p==='107'?10:5;
  $('marginLeft').value=p==='107'?3:6;$('marginTop').value=6;
  $('gapX').value=p==='107'?5:2;$('gapY').value=2;
- if(mode!=='custom'){$('customW').value=dimsForPaper(p).w.toFixed(2);$('customH').value=dimsForPaper(p).h.toFixed(2);}
+ // Samakan ukuran dasar label kustom dengan ukuran label obat pada jenis kertas terpilih.
+ const paperDims=dimsForPaper(p);
+ $('customW').value=paperDims.w.toFixed(2);
+ $('customH').value=paperDims.h.toFixed(2);
  selected=new Set([1]);renderSheet();updatePreview();
 }
 function dimsForPaper(p){return p==='107'?{w:(165-6-10)/3,h:(210-12-18)/10}:{w:(165-12-2)/2,h:(210-12-8)/5}}
